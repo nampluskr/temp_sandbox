@@ -140,6 +140,11 @@ tests/test_07_efficientad.py
 ```
 cd projects/anomaly_detection
 git init
+git config --global init.defaultBranch main
+git config --global core.quotepath false
+git config --global core.autocrlf true
+git config --global core.editor "code --wait"
+
 git remote add origin https://github.com/your-username/anomaly_detection.git
 git checkout -b main
 
