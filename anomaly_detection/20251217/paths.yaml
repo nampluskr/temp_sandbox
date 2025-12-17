@@ -1,0 +1,41 @@
+# ==========================================
+# Project Path Configuration
+# ==========================================
+
+# Project root (pytest 실행 기준)
+#PROJECT_ROOT: ${PWD}
+PROJECT_ROOT: /home/namu/myspace/NAMU/projects/anomaly_detection_main
+
+# Source code
+SOURCE_DIR: ${PROJECT_ROOT}/src
+PACKAGE_DIR: ${SOURCE_DIR}/anomaly_detection
+
+# =========================
+# Fixed external resources
+# =========================
+
+# Datasets (absolute path)
+DATASET_ROOT: /home/namu/myspace/NAMU/datasets
+MVTec_DIR: ${DATASET_ROOT}/mvtec
+VISA_DIR: ${DATASET_ROOT}/visa
+BTAD_DIR: ${DATASET_ROOT}/btad
+
+# Pretrained backbones (absolute path)
+BACKBONE_DIR: /home/namu/myspace/NAMU/backbones
+
+# =========================
+# Experiment outputs
+# =========================
+
+OUTPUT_ROOT: ${PROJECT_ROOT}/outputs
+CHECKPOINT_DIR: ${OUTPUT_ROOT}/checkpoints
+RESULT_DIR: ${OUTPUT_ROOT}/results
+LOG_DIR: ${OUTPUT_ROOT}/logs
+
+# =========================
+# Others
+# =========================
+
+EXPERIMENT_DIR: ${PROJECT_ROOT}/experiments
+NOTEBOOK_DIR: ${PROJECT_ROOT}/notebooks
+DOCS_DIR: ${PROJECT_ROOT}/docs
