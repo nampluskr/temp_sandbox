@@ -68,10 +68,14 @@ if __name__ == "__main__":
 
     from vad_mini.models.stfpm.trainer import STFPMTrainer
 
-    trainer = STFPMTrainer(backbone="resnet18")
+    trainer = STFPMTrainer(backbone="resnet34")
     train_outputs = trainer.fit(train_loader, num_epochs=10, valid_loader=test_loader)
-    results = trainer.evaluate(test_loader)
-    print(results)
+
+    threshold = trainer.calibrate_threshold(train_loader, method="quantile", quantile=0.99)
+    print(f">> quantile threshold: {threshold:.3f}")
+
+    threshold = trainer.calibrate_threshold(train_loader, method="mean_std")
+    print(f">> mean_std threshold: {threshold:.3f}")
 
 
     
