@@ -72,11 +72,16 @@ if __name__ == "__main__":
     train_outputs = trainer.fit(train_loader, num_epochs=10, valid_loader=test_loader)
 
     threshold = trainer.calibrate_threshold(train_loader, method="quantile", quantile=0.99)
-    print(f">> quantile threshold: {threshold:.3f}")
+    print(f">> quantile threshold (99%): {threshold:.3f}")
+    
+    threshold = trainer.calibrate_threshold(train_loader, method="quantile", quantile=0.97)
+    print(f">> quantile threshold (97%): {threshold:.3f}")
 
-    threshold = trainer.calibrate_threshold(train_loader, method="mean_std")
-    print(f">> mean_std threshold: {threshold:.3f}")
+    threshold = trainer.calibrate_threshold(train_loader, method="mean_std", sigma=3)
+    print(f">> mean_std threshold (3-sigma): {threshold:.3f}")
 
+    threshold = trainer.calibrate_threshold(train_loader, method="mean_std", sigma=2)
+    print(f">> mean_std threshold (2-sigma): {threshold:.3f}")
 
     
 
