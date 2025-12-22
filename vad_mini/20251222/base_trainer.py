@@ -160,7 +160,7 @@ class BaseTrainer(ABC):
             images = batch["image"].to(self.device)
             outputs = self.model(images)
             pred_scores = outputs["pred_score"].squeeze().cpu()
-            all_scores.append(pred_score)
+            all_scores.append(pred_scores)
 
         all_scores = torch.cat(all_scores)
 
