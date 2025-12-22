@@ -151,3 +151,24 @@ class BaseTrainer(ABC):
             "aupr": self.aupr.compute().item(),
         }
 
+    @torch.no_grad()
+    def calibrate_threshold(self, dataloader, method="quantile", quantile=0.99):
+        self.model.eval()
+        all_scores = []
+
+        for batch in dataloader:
+            images = batch["image"].to(self.device)
+            outputs = self.model(images)
+            pred_scores = outputs["pred_score"].squeeze().cpu()
+            all_scores.append(pred_score)
+
+        all_scores = torch.cat(all_scores)
+
+        if method == "quantile":
+            threshold = torch.quantile(all_scores, quantile)
+        elif method == "mean_std":
+            threshold = all_scores.mean() + 3 * all_scores.std()
+        else:
+            raise ValueError("method: 'quantile' or 'mean_std'")
+
+        return threshold.item()
