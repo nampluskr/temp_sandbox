@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod
 from tqdm import tqdm
 from torchmetrics.classification import BinaryAUROC, BinaryAveragePrecision
+from torchmetrics.functional import binary_roc_curve
 
 import torch
 
@@ -146,13 +147,17 @@ class BaseTrainer(ABC):
         self.aucroc.update(all_pred_scores, all_labels)
         self.aupr.update(all_pred_scores, all_labels)
 
+        fpr, tpr, thresholds = binary_roc_curve(preds, target, task='binary')
+        j_scores = tpr - fpr
+
         return {
             "aucroc": self.aucroc.compute().item(),
             "aupr": self.aupr.compute().item(),
+            "threshold": thresholds[torch.argmax(j_scores)].item()
         }
 
     @torch.no_grad()
-    def calibrate_threshold(self, dataloader, method="quantile", quantile=0.99):
+    def calibrate_threshold(self, dataloader, method="quantile", quantile=0.97):
         self.model.eval()
         all_scores = []
 
