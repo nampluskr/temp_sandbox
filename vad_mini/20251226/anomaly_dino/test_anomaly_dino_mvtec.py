@@ -13,8 +13,8 @@ from vad_mini.data.transforms import get_train_transform, get_test_transform, ge
 # DATA_DIR = "/mnt/d/deep_learning/datasets/mvtec"
 DATA_DIR = "/home/namu/myspace/NAMU/datasets/mvtec"
 CATEGORY = "bottle"
-IMG_SIZE = 256
-CROP_SIZE = 224
+IMG_SIZE = 224
+CROP_SIZE = None
 BATCH_SIZE = 1
 NORMALIZE = False
 SEED = 42
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         category=CATEGORY,
         split="test",
         transform=get_test_transform(img_size=IMG_SIZE, crop_size=CROP_SIZE, normalize=NORMALIZE),
-        mask_transform=get_mask_transform(img_size=CROP_SIZE),
+        mask_transform=get_mask_transform(img_size=IMG_SIZE),
     )
     train_loader = get_train_loader(
         dataset=train_dataset,
