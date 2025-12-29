@@ -43,8 +43,7 @@ class SupersimplenetTrainer(BaseTrainer):
 
     def training_step(self, batch):
         images = batch["image"].to(self.device)
-        # masks = batch["mask"].to(self.device) # (B, H, W) -> (B, C, H, W)
-        masks = None
+        masks = batch["mask"].to(self.device)
         labels = batch["label"].to(self.device)
         anomaly_map, anomaly_score, masks, labels = self.model(images, masks, labels)
         loss = self.loss_fn(pred_map=anomaly_map, pred_score=anomaly_score, target_mask=masks, target_label=labels)
