@@ -79,13 +79,16 @@ class TimmFeatureExtractor(nn.Module):
                 out_indices=self.idx,
             )
             self.out_dims = self.feature_extractor.feature_info.channels()
+
             if pre_trained:
-                weight_path = get_backbone_path(backbone)
-                if weight_path.endswith("tv_in1k"):
+                weights_path = get_backbone_path(backbone)
+                if weights_path.endswith(".pth"):
+                    state_dict = torch.load(weights_path, map_location="cpu", weights_only=True)
+                elif weights_path.endswith(".safetensors"):
                     from safetensors.torch import load_file
-                    state_dict = load_file(weight_path, device="cpu")
+                    state_dict = load_file(weights_path, device="cpu")
                 else:
-                    state_dict = torch.load(weight_path, map_location="cpu", weights_only=True)
+                    raise ValueError(f"weights must end with '.pth' or '.safetensors': {os.path.basename(weights_path)}")
 
                 self.feature_extractor.load_state_dict(state_dict, strict=False)
         else:
