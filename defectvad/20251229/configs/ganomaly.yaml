@@ -1,0 +1,33 @@
+# configs/models/ganomaly.yaml
+
+model:
+  name: ganomaly
+  module: defectvad.models.ganomaly.torch_model
+  class: GanomalyModel
+
+trainer:
+  name: ganomaly
+  module: defectvad.models.ganomaly.trainer
+  class: GanomalyTrainer
+
+  params:
+    input_size: [256, 256]
+    num_input_channels: 3
+    n_features: 64
+    latent_vec_size: 128
+    batch_size: 8
+    lr: 0.0001
+    beta1: 0.5
+    beta2: 0.999
+
+  max_epochs: 10
+  validate: true
+
+dataset:
+  normalize: true
+  mean: [0.5, 0.5, 0.5]
+  std: [0.5, 0.5, 0.5]
+
+dataloader:
+  train:
+    batch_size: 8
