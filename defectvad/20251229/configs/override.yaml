@@ -1,0 +1,4 @@
+# configs/override.yaml
+
+# trainer:
+#   max_epochs: 5
