@@ -1,0 +1,27 @@
+# configs/models/stfpm.yaml
+
+model:
+  name: reverse_distillation
+  module: defectvad.models.reverse_distillation.torch_model
+  class: ReverseDistillationModel
+
+trainer:
+  name: reverse_distillation
+  module: defectvad.models.reverse_distillation.trainer
+  class: ReverseDistillationTrainer
+
+  params:
+    backbone: wide_resnet50_2
+    layers: [layer1, layer2, layer3]
+    input_size: [256, 256]
+    anomaly_map_mode: add
+
+  max_epochs: 50
+  validate: true
+
+# dataset:
+#   normalize: false
+
+# dataloader:
+#   train:
+#     batch_size: 32
