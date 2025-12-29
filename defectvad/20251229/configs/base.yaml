@@ -1,0 +1,14 @@
+# configs/base.yaml
+
+seed: 42
+
+path:
+  backbone: /home/namu/myspace/NAMU/backbones
+
+  dataset: /home/namu/myspace/NAMU/datasets
+  mvtec: /home/namu/myspace/NAMU/datasets/mvtec
+  visa: /home/namu/myspace/NAMU/datasets/visa
+  btad: /home/namu/myspace/NAMU/datasets/btad
+
+  project: /home/namu/myspace/NAMU/projects/defectvad
+  output: /home/namu/myspace/NAMU/projects/defectvad/outputs
