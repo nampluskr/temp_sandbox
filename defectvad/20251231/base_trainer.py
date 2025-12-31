@@ -2,9 +2,7 @@
 
 from abc import ABC, abstractmethod
 from tqdm import tqdm
-
 import torch
-from torch.nn.utils import clip_grad_norm_
 
 from .early_stopper import EarlyStopper
 from .evaluator import Evaluator
@@ -181,7 +179,7 @@ class BaseTrainer(ABC):
                     self.backward(loss)
 
                     if self.gradient_clip_val is not None and self.gradient_clip_val > 0:
-                        clip_grad_norm_(self.model.parameters(), max_norm=self.gradient_clip_val)
+                        torch.nn.utilsclip_grad_norm_(self.model.parameters(), max_norm=self.gradient_clip_val)
 
                     self.optimizer.step()
 
