@@ -1,3 +1,4 @@
+```
 On branch main
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
@@ -10,3 +11,4 @@ Changes to be committed:
         new file:   src/defectvad/common/predictor.py
         new file:   src/defectvad/models/efficientad/efficientad.yaml
         new file:   src/defectvad/models/stfpm/stfpm.yaml
+```
