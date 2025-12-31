@@ -8,37 +8,40 @@ from torchmetrics import MetricCollection
 
 
 class Evaluator:
-    def __init__(self, model, device=None, pixel_level=False):
+    def __init__(self, model, device=None, pixel_level=None, image_threshold=None, pixel_threshold=None):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = model.to(self.device)
+
         self.pixel_level = pixel_level
+        self.image_threshold = image_threshold
+        self.pixel_threshold = pixel_threshold
 
         self.image_metrics = MetricCollection({
             "auroc": BinaryAUROC(),
             "aupr": BinaryAveragePrecision(),
-            "f1": BinaryF1Score(threshold=0.5),     # default threshold value
+            "f1": BinaryF1Score(threshold=image_threshold) if image_threshold is not None else None
         }).to(self.device)
 
         self.pixel_metrics = MetricCollection({
             "auroc": BinaryAUROC(),
             "aupr": BinaryAveragePrecision(),
-            "f1": BinaryF1Score(threshold=0.5),     # default threshold value
+            "f1": BinaryF1Score(threshold=pixel_threshold) if pixel_threshold is not None else None
         }).to(self.device)
-
-        # thresholds
-        self.image_threshold = None
-        self.pixel_threshold = None
 
     def validation_step(self, batch):
         images = batch["image"].to(self.device)
         predictions = self.model(images)
         return {**batch, **predictions}
 
-    def set_pixel_level(self, value=True):
-        self.pixel_level = value
-
     def set_image_threshold(self, threshold):
         self.image_threshold = float(thershold)
+        self.image_metrics["f1"].threshold = threshold
+        # self.image_metrics["f1"] = BinaryF1Score(threshold=threshold)
+
+    def set_pixel_level(self, value=True):
+        self.pixel_level = value
+        self.pixel_metrics["f1"].threshold = threshold
+        # self.image_metrics["f1"] = BinaryF1Score(threshold=threshold)
 
     def set_pixel_threshold(self, threshold):
         self.pixel_threshold = float(thershold)
