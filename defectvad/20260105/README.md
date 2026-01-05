@@ -2,10 +2,9 @@
 
 ## Setup
 
-### 1. Config 파일 수정
+### 1. 환경 파일(`configs/defaults.yaml`) 수정: 폴더 경로, 운영체제별 설정
 
-**`configs/defaults.yaml` 경로 수정**
-
+**Linux**
 ```yaml
 path:
   backbone: /home/namu/myspace/NAMU/backbones
@@ -15,8 +14,16 @@ path:
   btad: /home/namu/myspace/NAMU/datasets/btad
 ```
 
-**운영체제별 Dataloader 옵션 변경**
+**Windows**
+```yaml
+  backbone: D:\Non_Documents\backbones
+  dataset: E:\datasets
+  mvtec: E:\datasets\mvtec
+  visa: E:\datasets\visa
+  btad: E:\datasets\btad
+```
 
+**Dataloader**
 ```yaml
 train_loader:
   batch_size: 16
