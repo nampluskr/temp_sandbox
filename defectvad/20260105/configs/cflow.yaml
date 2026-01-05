@@ -1,0 +1,34 @@
+# /models/cflow/config.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: cflow
+  module: defectvad.models.cflow.model_trainer
+  class: Cflow
+  params:
+    backbone: wide_resnet50_2
+    layers: 
+    - layer1
+    - layer2
+    - layer3
+    fiber_batch_size: 64
+    decoder: freia-cflow
+    condition_vector: 128
+    coupling_blocks: 8
+    clamp_alpha: 1.9
+    permute_soft: false
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: cflow
+  module: defectvad.models.cflow.model_trainer
+  class: CflowTrainer
+  max_epochs: 20
+  validate: true
+  params: null
