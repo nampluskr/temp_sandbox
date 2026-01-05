@@ -2,7 +2,9 @@
 
 ## Setup
 
-### 1. `configs/defaults.yaml` 경로 수정
+### 1. Config 파일 수정
+
+**`configs/defaults.yaml` 경로 수정**
 
 ```yaml
 path:
@@ -11,6 +13,24 @@ path:
   mvtec: /home/namu/myspace/NAMU/datasets/mvtec
   visa: /home/namu/myspace/NAMU/datasets/visa
   btad: /home/namu/myspace/NAMU/datasets/btad
+```
+
+**운영체제별 Dataloader 옵션 변경**
+
+```yaml
+train_loader:
+  batch_size: 16
+  shuffle: true
+  drop_last: true
+  num_workers: 0      # Windows 0 / Linux 8
+  pin_memory: false   # Windows false / Linux true
+
+test_loader:
+  batch_size: 1
+  shuffle: false
+  drop_last: false
+  num_workers: 0      # Windows 0 / Linux 8
+  pin_memory: false   # Windows false / Linux true
 ```
 
 ### 2. `datasets` 폴더 구조
