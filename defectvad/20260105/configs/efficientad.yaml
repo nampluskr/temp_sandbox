@@ -1,0 +1,42 @@
+# configs/models/efficientad.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: efficientad
+  module: defectvad.models.efficientad.model_trainer
+  class: EfficientAd
+  params:
+    teacher_out_channels: 384
+    model_size: small          # small | medium
+    padding: false
+    pad_maps: true
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: efficientad
+  module: defectvad.models.efficientad.model_trainer
+  class: EfficientAdTrainer
+  max_epochs: 10
+  validate: true
+  params: 
+    model_size: small          # small | medium
+
+#####################################################################
+# Dataset
+#####################################################################
+
+dataset:
+  normalize: false    # << INPORTANT !!!
+
+#####################################################################
+# Dataloader
+#####################################################################
+
+train_loader:
+  batch_size: 1       # << INPORTANT !!!
