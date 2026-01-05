@@ -1,0 +1,32 @@
+# configs/models/reversedistill.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: reversedistill
+  module: defectvad.models.reversedistill.model_trainer
+  class: ReverseDistillation
+  params:
+    backbone: wide_resnet50_2
+    layers:
+    - layer1
+    - layer2
+    - layer3
+    input_size:
+    - 256
+    - 256
+    anomaly_map_mode: add
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: reversedistill
+  module: defectvad.models.reversedistill.model_trainer
+  class: ReverseDistillationTrainer
+  max_epochs: 10
+  validate: true
+  params: null
