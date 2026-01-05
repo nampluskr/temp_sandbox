@@ -1,0 +1,39 @@
+# /models/dinomaly/config.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: dinomaly
+  module: defectvad.models.dinomaly.model_trainer
+  class: Dinomaly
+  params:
+    encoder_name: dinov2reg_vit_base_14
+    bottleneck_dropout: 0.2
+    decoder_depth: 8
+    target_layers: null
+    fuse_layer_encoder: null
+    fuse_layer_decoder: null
+    remove_class_token: false
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: dinomaly
+  module: defectvad.models.dinomaly.model_trainer
+  class: DinomalyTrainer
+  max_epochs: 20
+  validate: true
+  params: null
+
+#####################################################################
+# Dataset
+#####################################################################
+
+dataset:
+  img_size: 448
+  crop_size: 392
+  normalize: true
