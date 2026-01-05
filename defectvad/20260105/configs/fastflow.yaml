@@ -1,0 +1,30 @@
+# configs/models/fastflow.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: fastflow
+  module: defectvad.models.fastflow.model_trainer
+  class: Fastflow
+  params:
+    backbone: wide_resnet50_2
+    flow_steps: 8
+    conv3x3_only: false
+    hidden_ratio: 1.0
+    input_size: 
+    - 256
+    - 256
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: fastflow
+  module: defectvad.models.fastflow.model_trainer
+  class: FastflowTrainer
+  max_epochs: 20
+  validate: true
+  params: null
