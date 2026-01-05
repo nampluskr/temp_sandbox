@@ -89,7 +89,7 @@ defectvad/                              # project_dir
 │       │   ├── config.py               # load_config, merge_configs
 │       │   ├── early_stopper.py        # EarlyStopper (pytorch version)
 │       │   ├── evaluator.py            # Evaluator (pytorch version)
-│       │   ├── factory.py              # create_dataset, create_dataloader, create_trainer from configs
+│       │   ├── factory.py              # create dataset / dataloader / model / trainer
 │       │   ├── visualizer.py           # Visualier (pytorch version)
 │       │   └── utils.py                # set_seed
 │       ├── componests/                 # copied components from anomalib
@@ -101,7 +101,7 @@ defectvad/                              # project_dir
 │       ├── data/                       # Dataset / transforms
 │       │   ├── __init__.py
 │       │   ├── datasets.py             # BaseDataset, MVTecDataset, ViSADataset, BTADDataset
-│       │   └── trainsforms.py          # get_train_transform, get_test_transform, get_mask_transform
+│       │   └── trainsforms.py          # get_image_transform, get_mask_transform
 │       └── models/
 │           ├── stfpm/
 │           │   ├── __init__.py
