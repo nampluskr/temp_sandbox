@@ -16,6 +16,7 @@ path:
 
 **Windows**
 ```yaml
+path:
   backbone: D:\Non_Documents\backbones
   dataset: E:\datasets
   mvtec: E:\datasets\mvtec
