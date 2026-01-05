@@ -19,20 +19,21 @@ os.environ["DATASET_DIR"] = "e:\\datasets"
 ### Hyperparameters
 
 ```python
-# Datasets
+# Dataset
 DATASET_DIR = "e:\\datasets\\mvtec"
 CATEGORY = "bottle"
 IMG_SIZE = 256
 CROP_SIZE = None
 NORMALIZE = True
 
-# Train Dataloaders
+# Train Dataloader
 TRAIN_BATCH_SIZE = 16
 TRAIN_SHUFFLE = True
 TRAIN_DROP_LAST = True
 TRAIN_NUM_WORKERS = 0
 TRAIN_PIN_MEMORY = False
 
+# Test Dataloader
 TEST_BATCH_SIZE = 1
 TEST_SHUFFLE = False
 TEST_DROP_LAST = False
