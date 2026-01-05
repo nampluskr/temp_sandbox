@@ -1,0 +1,30 @@
+# configs/models/csflow.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: csflow
+  module: defectvad.models.csflow.model_trainer
+  class: Csflow
+  params:
+    cross_conv_hidden_channels: 1024
+    n_coupling_blocks: 4
+    clamp: 3 
+    num_channels: 3
+    input_size: 
+    - 256
+    - 256
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: csflow
+  module: defectvad.models.csflow.model_trainer
+  class: CsflowTrainer
+  max_epochs: 20
+  validate: true
+  params: null
