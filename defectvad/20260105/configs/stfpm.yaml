@@ -1,0 +1,28 @@
+# /models/stfpm/config.yaml
+
+#####################################################################
+# Model
+#####################################################################
+
+model:
+  name: stfpm
+  module: defectvad.models.stfpm.model_trainer
+  class: STFPM
+  params:
+    backbone: resnet50              # resnet18 | resnet50
+    layers:
+    - layer1
+    - layer2
+    - layer3
+
+#####################################################################
+# Trainer
+#####################################################################
+
+trainer:
+  name: stfpm
+  module: defectvad.models.stfpm.model_trainer
+  class: STFPMTrainer
+  max_epochs: 20
+  validate: true
+  params: null
