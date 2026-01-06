@@ -1,5 +1,6 @@
 # common/base_trainer.py
 
+from abc import ABC
 import os
 from tqdm import tqdm
 
@@ -7,7 +8,7 @@ import torch
 from torch.utils.data import DataLoader
 
 
-class BaseModel:
+class BaseModel(ABC):
     def __init__(self, model, device=None):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = model.to(self.device)
