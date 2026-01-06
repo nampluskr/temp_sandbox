@@ -1,16 +1,17 @@
 # data/datasets.py
 
+from abc import ABC, abstractmethod
 import os
 from glob import glob
 import pandas as pd
 from PIL import Image
 
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, ConcatDataset, Subset
 import torchvision.transforms as T
 
 
-class BaseDataset(Dataset):
+class BaseDataset(Dataset, ABC):
     DATASET = ""    # dataset name: mvtec | visa | btad
     CATEGORIES = []
 
@@ -30,9 +31,11 @@ class BaseDataset(Dataset):
         else:
             raise ValueError(f"split must be 'train' or 'test': {split}")
 
+    @abstractmethod
     def _load_train_samples(self):
         raise NotImplementedError
 
+    @abstractmethod
     def _load_test_samples(self):
         raise NotImplementedError
 
@@ -52,11 +55,47 @@ class BaseDataset(Dataset):
             mask = self.mask_transform(mask)
         return mask
 
-    def count_normal(self):
+    def count_category(self, category):
         return sum(sample["label"] == 0 for sample in self.samples)
 
-    def count_anomaly(self):
-        return sum(sample["label"] == 1 for sample in self.samples)
+    def count_normal(self, category=None):
+        if category is None:
+            return sum(sample["label"] == 0 for sample in self.samples)
+        else:
+            return sum(sample["label"] == 0 and sample["category"] == category 
+                for sample in self.samples)
+
+
+    def count_anomaly(self, category=None):
+        if category is None:
+            return sum(sample["label"] == 1 for sample in self.samples)
+        else:
+            return sum(sample["label"] == 1 and sample["category"] == category 
+                for sample in self.samples)
+
+    def filter(self, category):
+        if isinstance(category, (list, tuple, set)):
+            indices = [i for i in range(len(self)) if self.categories[i] in category]
+        else:
+            indices = [i for i in range(len(self)) if self.categories[i] == category]
+        return Subset(self, indices)
+
+    @classmethod
+    def concat(cls, root_dir, categories, split, transform=None, mask_transform=None):
+        datasets = []
+        for category in categories:
+            if category not in cls.CATEGORIES:
+                raise ValueError(f"Unknown category: {category}. Available: {cls.CATEGORIES}")
+
+            dataset = cls(
+                root_dir=root_dir,
+                category=category,
+                split=split,
+                transform=transform,
+                mask_transform=mask_transform
+            )
+            datasets.append(dataset)
+        return ConcatDataset(datasets)
 
     def __len__(self):
         return len(self.samples)
