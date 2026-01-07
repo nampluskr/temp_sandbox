@@ -118,7 +118,7 @@ def train(config):
     categories = config["dataset"]["category"]
     if len(categories) > 1:
         for category in categories:
-            test_dataset = test_dataset.select(category)
+            test_dataset = test_dataset.subset(category)
             test_loader = create_dataloader(test_dataset, config["test_loader"])
 
             print(f" > {category}:")
