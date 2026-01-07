@@ -89,12 +89,13 @@ class BaseDataset(Dataset, ABC):
     def info(self):
         print(f"\n*** {self.split.capitalize()} dataset: {self.NAME} (total {len(self)})")
         for category in self.category:
-            print(f" > {category + ':':11} {self.count_category(category)} "
-                  f"(normal {self.count_normal(category)}, "
-                  f"anomaly {self.count_anomaly(category)})"
+            print(f" > {category + ':':11} {self.count_category(category):4d} "
+                  f"(normal {self.count_normal(category):3d}, "
+                  f"anomaly {self.count_anomaly(category):3d})"
             )
 
-    def select(self, category):
+    def subset(self, category):
+        assert category in self.category
         return self.__class__(
             root_dir=self.root_dir,
             category=category,
